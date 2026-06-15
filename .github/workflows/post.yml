@@ -1,0 +1,21 @@
+name: Binance Square Post
+
+on:
+  schedule:
+    - cron: '0 9 * * *'  # daily at 09:00 UTC
+  workflow_dispatch:
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Run script
+        env:
+          BINANCE_SQUARE_API_KEY: ${{ secrets.BINANCE_SQUARE_API_KEY }}
+        run: |
+          python3 post.py
